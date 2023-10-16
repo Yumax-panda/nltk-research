@@ -98,13 +98,19 @@ def main():
     regex_tagger = RegexpTagger(patterns, backoff=default_tagger)
 
     # lookupタガー
-    lookup_tagger = get_lookup_tagger(words, tagged_words, lookup=100, backoff=backoff)
+    lookup = 100
+    lookup_tagger = get_lookup_tagger(
+        words, tagged_words, lookup=lookup, backoff=backoff
+    )
 
     # ユニグラムタグ付け
     size = int(len(brown_tagged_sents) * 0.9)
     train_sents = brown_tagged_sents[:size]
     test_sents = brown_tagged_sents[size:]
     unigram_tagger = UnigramTagger(train_sents)
+
+    # バイグラムタグ付け
+    bigram_tagger = BigramTagger(train_sents)
 
     for tagger in (default_tagger, regex_tagger, lookup_tagger):
         execute(tagger, tokens, brown_tagged_sents)
