@@ -19,6 +19,10 @@ class LookUpTagger(UnigramTagger):
     pass
 
 
+class CombinedTagger(BigramTagger):
+    pass
+
+
 def execute(tagger: TaggerT, tokens: list[str], answer: Tagged):
     """共通処理
     与えられたタガーでタグ付けを行い、その結果を表示する
@@ -112,9 +116,16 @@ def main():
     # バイグラムタグ付け
     bigram_tagger = BigramTagger(train_sents)
 
+    # バックオフを利用
+    t1 = UnigramTagger(train_sents, backoff=default_tagger)
+    t2 = BigramTagger(train_sents, backoff=t1)
+    combined_tagger = CombinedTagger(train_sents, backoff=t2)
+
     for tagger in (default_tagger, regex_tagger, lookup_tagger):
         execute(tagger, tokens, brown_tagged_sents)
-    execute(unigram_tagger, tokens, test_sents)
+
+    for tagger in (unigram_tagger, bigram_tagger, combined_tagger):
+        execute(tagger, tokens, test_sents)
 
 
 if __name__ == "__main__":
