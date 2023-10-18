@@ -65,7 +65,7 @@ def get_lookup_tagger(
 
     Returns
     -------
-    UnigramTagger
+    LookUpTagger
         作成したlookupタガー
     """
     fd = FreqDist(words)
