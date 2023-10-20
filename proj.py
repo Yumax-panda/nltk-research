@@ -91,9 +91,8 @@ def get_most_freq_tag(tagged_words: list[str]) -> str:
     return FreqDist(tag for (_, tag) in tagged_words).max()
 
 
-def main():
+def main(category: str):
     # 実験に使用するデータ
-    category = "news"
     brown_tagged_sents = brown.tagged_sents(categories=category)
     sents = brown.sents(categories=category)
     tokens = sents[3]
@@ -140,6 +139,8 @@ def main():
     t2 = BigramTagger(train_sents, backoff=t1)
     combined_tagger = CombinedTagger(train_sents, backoff=t2)
 
+    # 実験
+    print(f"-----Category: {category}-----")
     for tagger in (default_tagger, regex_tagger, lookup_tagger):
         execute(tagger, tokens, brown_tagged_sents)
 
@@ -148,4 +149,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    for category in {
+        "news",
+        "adventure",
+        "belles_lettres",
+        "editorial",
+        "fiction",
+        "government",
+        "hobbies",
+    }:
+        main(category)
