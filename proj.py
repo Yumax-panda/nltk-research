@@ -24,6 +24,10 @@ class CombinedTagger(BigramTagger):
     pass
 
 
+class UnigramTaggerWithAllData(UnigramTagger):
+    pass
+
+
 def execute(tagger: TaggerT, tokens: list[str], answer: Tagged) -> dict[str, float]:
     """共通処理
     与えられたタガーでタグ付けを行い、その結果を表示する
@@ -133,6 +137,7 @@ def run(category: str) -> dict[str, float]:
     size = int(len(brown_tagged_sents) * 0.9)
     train_sents = brown_tagged_sents[:size]
     test_sents = brown_tagged_sents[size:]
+    unigram_tagger_with_all_data = UnigramTaggerWithAllData(brown_tagged_sents)
     unigram_tagger = UnigramTagger(train_sents)
 
     # バイグラムタグ付け
@@ -146,7 +151,12 @@ def run(category: str) -> dict[str, float]:
     data = {}
 
     # 実験
-    for tagger in (default_tagger, regex_tagger, lookup_tagger):
+    for tagger in (
+        default_tagger,
+        regex_tagger,
+        lookup_tagger,
+        unigram_tagger_with_all_data,
+    ):
         data.update(execute(tagger, tokens, brown_tagged_sents))
 
     for tagger in (unigram_tagger, bigram_tagger, combined_tagger):
