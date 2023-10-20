@@ -55,7 +55,6 @@ def get_lookup_tagger(
     words: list[str],
     tagged_words: list[str],
     lookup: int = 100,
-    backoff: str = "NN",
 ) -> LookUpTagger:
     """lookupタガーを作成する
 
@@ -67,8 +66,6 @@ def get_lookup_tagger(
         タガーの学習に使用するタグ付き単語
     lookup : int, optional
         lookupタガーのlookup数, by default 100
-    backoff : str, optional
-        lookupタガーのバックオフタガー, by default "NN"
 
     Returns
     -------
@@ -79,7 +76,7 @@ def get_lookup_tagger(
     cfd = ConditionalFreqDist(tagged_words)
     most_freq_words = fd.most_common(lookup)
     likely_tags = dict((word, cfd[word].max()) for (word, _) in most_freq_words)
-    return LookUpTagger(model=likely_tags, backoff=DefaultTagger(backoff))
+    return LookUpTagger(model=likely_tags)
 
 
 def get_most_freq_tag(tagged_words: list[str]) -> str:
@@ -130,9 +127,7 @@ def run(category: str) -> dict[str, float]:
 
     # lookupタガー
     lookup = 100
-    lookup_tagger = get_lookup_tagger(
-        words, tagged_words, lookup=lookup, backoff=backoff
-    )
+    lookup_tagger = get_lookup_tagger(words, tagged_words, lookup=lookup)
 
     # ユニグラムタグ付け
     size = int(len(brown_tagged_sents) * 0.9)

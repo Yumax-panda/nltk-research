@@ -1,48 +1,48 @@
 {
-    "adventure": {
-        "DefaultTagger": 0.11610567909780509,
-        "RegexpTagger": 0.19011565861959562,
-        "LookUpTagger": 0.6322719275475182,
-        "UnigramTagger": 0.810929810929811,
-        "BigramTagger": 0.16951566951566951,
-        "CombinedTagger": 0.8536648536648537
-    },
-    "government": {
-        "DefaultTagger": 0.1408645549581414,
-        "RegexpTagger": 0.20976368070510718,
-        "LookUpTagger": 0.5928947330889799,
-        "UnigramTagger": 0.7973087818696883,
-        "BigramTagger": 0.08555240793201133,
-        "CombinedTagger": 0.8466005665722379
-    },
-    "fiction": {
-        "DefaultTagger": 0.11410758089008294,
-        "RegexpTagger": 0.18314157224623293,
-        "LookUpTagger": 0.6361552388739633,
-        "UnigramTagger": 0.824455652601796,
-        "BigramTagger": 0.16742526756058557,
-        "CombinedTagger": 0.8657891499569442
-    },
     "belles_lettres": {
         "DefaultTagger": 0.1259416739843786,
         "RegexpTagger": 0.1829967185839072,
-        "LookUpTagger": 0.6206844756666821,
+        "LookUpTagger": 0.4984806119147756,
         "UnigramTagger": 0.8480785472972973,
         "BigramTagger": 0.142578125,
         "CombinedTagger": 0.8794341216216216
     },
+    "fiction": {
+        "DefaultTagger": 0.11410758089008294,
+        "RegexpTagger": 0.18314157224623293,
+        "LookUpTagger": 0.5254789160144843,
+        "UnigramTagger": 0.824455652601796,
+        "BigramTagger": 0.16742526756058557,
+        "CombinedTagger": 0.8657891499569442
+    },
     "editorial": {
         "DefaultTagger": 0.12458606583988052,
         "RegexpTagger": 0.18596195052269332,
-        "LookUpTagger": 0.5976559963638725,
+        "LookUpTagger": 0.4754236737874164,
         "UnigramTagger": 0.8075547288596365,
         "BigramTagger": 0.11231935899270282,
         "CombinedTagger": 0.8424667334382602
     },
+    "government": {
+        "DefaultTagger": 0.1408645549581414,
+        "RegexpTagger": 0.20976368070510718,
+        "LookUpTagger": 0.4654791277436285,
+        "UnigramTagger": 0.7973087818696883,
+        "BigramTagger": 0.08555240793201133,
+        "CombinedTagger": 0.8466005665722379
+    },
+    "adventure": {
+        "DefaultTagger": 0.11610567909780509,
+        "RegexpTagger": 0.19011565861959562,
+        "LookUpTagger": 0.5220357070750772,
+        "UnigramTagger": 0.810929810929811,
+        "BigramTagger": 0.16951566951566951,
+        "CombinedTagger": 0.8536648536648537
+    },
     "hobbies": {
         "DefaultTagger": 0.15137531119072195,
         "RegexpTagger": 0.2208270083186593,
-        "LookUpTagger": 0.6074807213552735,
+        "LookUpTagger": 0.46086586920881656,
         "UnigramTagger": 0.7931999139229611,
         "BigramTagger": 0.10038734667527437,
         "CombinedTagger": 0.8365612222939531
@@ -50,7 +50,7 @@
     "news": {
         "DefaultTagger": 0.13089484257215028,
         "RegexpTagger": 0.20326391789486245,
-        "LookUpTagger": 0.5817769556656125,
+        "LookUpTagger": 0.45578495136941344,
         "UnigramTagger": 0.8121200039868434,
         "BigramTagger": 0.10206319146815508,
         "CombinedTagger": 0.8452108043456593
