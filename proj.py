@@ -92,6 +92,8 @@ def get_most_freq_tag(tagged_words: list[str]) -> str:
 
 
 def main(category: str):
+    print(f"-----Category: {category}-----")
+
     # 実験に使用するデータ
     brown_tagged_sents = brown.tagged_sents(categories=category)
     sents = brown.sents(categories=category)
@@ -140,7 +142,6 @@ def main(category: str):
     combined_tagger = CombinedTagger(train_sents, backoff=t2)
 
     # 実験
-    print(f"-----Category: {category}-----")
     for tagger in (default_tagger, regex_tagger, lookup_tagger):
         execute(tagger, tokens, brown_tagged_sents)
 
