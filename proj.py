@@ -75,6 +75,22 @@ def get_lookup_tagger(
     return LookUpTagger(model=likely_tags, backoff=DefaultTagger(backoff))
 
 
+def get_most_freq_tag(tagged_words: list[str]) -> str:
+    """最も頻出するタグを返す
+
+    Parameters
+    ----------
+    tagged_words : list[str]
+        タグ付き単語
+
+    Returns
+    -------
+    str
+        最も頻出するタグ
+    """
+    return FreqDist(tag for (_, tag) in tagged_words).max()
+
+
 def main():
     # 実験に使用するデータ
     category = "news"
@@ -84,8 +100,11 @@ def main():
     words = brown.words(categories=category)
     tagged_words = brown.tagged_words(categories=category)
 
+    freq_tag = get_most_freq_tag(tagged_words)
+    print(f"Most frequent tag: {freq_tag}")
+
     # デフォルトタガー
-    backoff = "NN"
+    backoff = freq_tag
     default_tagger = DefaultTagger(backoff)
 
     # 正規表現タガー
