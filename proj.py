@@ -9,6 +9,7 @@ from nltk import (
     FreqDist,
     ConditionalFreqDist,
 )
+import json
 
 TaggerT = TypeVar("TaggerT", bound=SequentialBackoffTagger)
 Tagged = list[list[tuple[str, str]]]
@@ -23,7 +24,7 @@ class CombinedTagger(BigramTagger):
     pass
 
 
-def execute(tagger: TaggerT, tokens: list[str], answer: Tagged):
+def execute(tagger: TaggerT, tokens: list[str], answer: Tagged) -> dict[str, float]:
     """共通処理
     与えられたタガーでタグ付けを行い、その結果を表示する
 
@@ -35,6 +36,11 @@ def execute(tagger: TaggerT, tokens: list[str], answer: Tagged):
         タグ付けするトークン
     answer : Tagged
         正解のタグ付け
+
+    Returns
+    -------
+    dict[str, float]
+        タガーの精度
     """
     name = tagger.__class__.__name__
     tagged = tagger.tag(tokens)
@@ -42,6 +48,7 @@ def execute(tagger: TaggerT, tokens: list[str], answer: Tagged):
     print(f"-----Tagger: {name}-----")
     print(f"Processed: {tagged[:10]}...")
     print(f"Accuracy: {accuracy}\n\n")
+    return {name: accuracy}
 
 
 def get_lookup_tagger(
@@ -91,7 +98,7 @@ def get_most_freq_tag(tagged_words: list[str]) -> str:
     return FreqDist(tag for (_, tag) in tagged_words).max()
 
 
-def main(category: str):
+def run(category: str) -> dict[str, float]:
     print(f"-----Category: {category}-----")
 
     # 実験に使用するデータ
@@ -141,15 +148,20 @@ def main(category: str):
     t2 = BigramTagger(train_sents, backoff=t1)
     combined_tagger = CombinedTagger(train_sents, backoff=t2)
 
+    data = {}
+
     # 実験
     for tagger in (default_tagger, regex_tagger, lookup_tagger):
-        execute(tagger, tokens, brown_tagged_sents)
+        data.update(execute(tagger, tokens, brown_tagged_sents))
 
     for tagger in (unigram_tagger, bigram_tagger, combined_tagger):
-        execute(tagger, tokens, test_sents)
+        data.update(execute(tagger, tokens, test_sents))
+
+    return {category: data}
 
 
 if __name__ == "__main__":
+    data = {}
     for category in {
         "news",
         "adventure",
@@ -159,4 +171,7 @@ if __name__ == "__main__":
         "government",
         "hobbies",
     }:
-        main(category)
+        data.update(run(category))
+
+    with open("./result.json", "w") as f:
+        json.dump(data, f, indent=4)
