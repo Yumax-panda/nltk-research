@@ -1,0 +1,37 @@
+{
+    "editorial": {
+        "total_sentences": 2997,
+        "train_sents": 2697,
+        "test_sents": 300
+    },
+    "belles_lettres": {
+        "total_sentences": 7209,
+        "train_sents": 6488,
+        "test_sents": 721
+    },
+    "news": {
+        "total_sentences": 4623,
+        "train_sents": 4160,
+        "test_sents": 463
+    },
+    "fiction": {
+        "total_sentences": 4249,
+        "train_sents": 3824,
+        "test_sents": 425
+    },
+    "hobbies": {
+        "total_sentences": 4193,
+        "train_sents": 3773,
+        "test_sents": 420
+    },
+    "government": {
+        "total_sentences": 3032,
+        "train_sents": 2728,
+        "test_sents": 304
+    },
+    "adventure": {
+        "total_sentences": 4637,
+        "train_sents": 4173,
+        "test_sents": 464
+    }
+}

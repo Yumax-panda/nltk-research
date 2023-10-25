@@ -7,7 +7,6 @@ from nltk import (
     BigramTagger,
     RegexpTagger,
     FreqDist,
-    ConditionalFreqDist,
 )
 import json
 
@@ -22,6 +21,35 @@ class CombinedTagger(BigramTagger):
 
 class UnigramTaggerWithAllData(UnigramTagger):
     pass
+
+
+def display_info(category: str) -> dict[str, int]:
+    """データの情報を表示する
+
+    Parameters
+    ----------
+    category : str
+        カテゴリ
+
+    Returns
+    -------
+    dict[str, int]
+        データの情報
+    """
+    brown_sents = brown.sents(categories=category)
+    brown_tagged_sents = brown.tagged_sents(categories=category)
+    size = int(len(brown_tagged_sents) * 0.9)
+    train_sents = brown_tagged_sents[:size]
+    test_sents = brown_tagged_sents[size:]
+    print(f"Category: {category}")
+    print(f"Total sentences: {len(brown_sents)}")
+    print(f"train_sents: {len(train_sents)}")
+    print(f"test_sents: {len(test_sents)}\n")
+    return {
+        "total_sentences": len(brown_sents),
+        "train_sents": len(train_sents),
+        "test_sents": len(test_sents),
+    }
 
 
 def execute(tagger: TaggerT, tokens: list[str], answer: Tagged) -> dict[str, float]:
@@ -74,7 +102,6 @@ def run(category: str) -> dict[str, float]:
     brown_tagged_sents = brown.tagged_sents(categories=category)
     sents = brown.sents(categories=category)
     tokens = sents[3]
-    words = brown.words(categories=category)
     tagged_words = brown.tagged_words(categories=category)
 
     freq_tag = get_most_freq_tag(tagged_words)
@@ -140,6 +167,5 @@ if __name__ == "__main__":
         "hobbies",
     }:
         data.update(run(category))
-
     with open("./result_short.json", "w") as f:
         json.dump(data, f, indent=4)
